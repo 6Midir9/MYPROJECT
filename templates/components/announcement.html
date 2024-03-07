@@ -1,0 +1,15 @@
+{% extends 'components/base.html' %}
+
+{% block content %}
+    <h1>Оголошення:</h1>
+    <ul>
+        {% for announcement in announcements %}
+            <h3> {{ announcement.title }}</h3> 
+            <li> {{ announcement.text }}</li>
+            <li> {{ announcement.price }}</li>
+            <li> {{ announcement.contact_email }}</li>
+        {% empty %}
+            <li>Тут ще не має оголошень!</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

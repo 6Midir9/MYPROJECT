@@ -4,10 +4,10 @@
     <h1>Оголошення:</h1>
     <ul>
         {% for announcement in announcements %}
-            <h3> {{ announcement.title }}</h3> 
-            <li> {{ announcement.text }}</li>
-            <li> {{ announcement.price }}</li>
-            <li> {{ announcement.contact_email }}</li>
+            <h3> Товар: {{ announcement.title }}</h3> 
+            <li> Опис: {{ announcement.text }}</li>
+            <li> Ціна: {{ announcement.price }}</li>
+            <li> Контакти: {{ announcement.contact_email }}</li>
         {% empty %}
             <li>Тут ще не має оголошень!</li>
         {% endfor %}

@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from .models import Announcement
 from .forms import AnnounForm
 
+@login_required
 def index(request):
      return render(request, 'components/index.html')
 
+@login_required
 def announcement(request):
     announcements = Announcement.objects.all()
     return render(request, 'components/announcement.html', {'announcements': announcements})
 
+@login_required
 def new_announ(request):
     form = AnnounForm(data=request.POST)
 
@@ -21,8 +26,12 @@ def new_announ(request):
     context = {'form': form}
     return render(request, 'components/new_announ.html', context)
 
+@login_required
 def edit_announ(request, announcement_id):
      announcement = Announcement.objects.get(id=announcement_id)
+     if request.user.is_superuser == False:
+        if announcement.owner != request.user:
+           raise Http404
      if request.method != 'POST':
           form = AnnounForm(instance=announcement)
      else: 
@@ -34,8 +43,12 @@ def edit_announ(request, announcement_id):
      context = {'announcement' : announcement, 'form': form}
      return render(request, 'components/edit_announ.html', context)
 
+@login_required
 def delete_announ(request, announcement_id):
-    announcement = Announcement.objects.get(pk=announcement_id)
+    announcement = Announcement.objects.get(id=announcement_id)
+    if request.user.is_superuser == False:
+        if announcement.owner != request.user:
+           raise Http404
     if request.method == 'POST':
         announcement.delete()
         return redirect('components:announcement')

@@ -1,12 +1,16 @@
 {% extends "components/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-    <p><a href="{% url 'components:announcement' %}">{{ announcement }}</a></p>
-    <p>Ви точно бажаєте видалити оголошення?</p>
+<div class="container text-center">
+    <p class="mb-4"><a href="{% url 'components:announcement' %}">{{ announcement }}</a></p>
+    <h3 class="mb-4">Ви точно бажаєте видалити оголошення?</h3>
     <form action="{% url 'components:delete_announ' announcement.id %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Так, точно</button>
+        {{ form|crispy }}
+        <button name="submit" class="btn btn-outline-success mt-2">Так, точно</button>
+        <a href="{% url 'components:announcement' %}" class="btn btn-outline-danger mt-2">Відмінити</a>
     </form>
-    <button name="submit"><a href="{% url 'components:announcement' %}">Відмінити</a></button>
+</div>
 {% endblock content %}

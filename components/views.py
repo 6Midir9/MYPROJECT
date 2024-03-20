@@ -15,14 +15,16 @@ def announcement(request):
 
 @login_required
 def new_announ(request):
-    form = AnnounForm(data=request.POST)
-
     if request.method == 'POST':
-        form = AnnounForm(data=request.POST)
+        form = AnnounForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_announ = form.save(commit=False)
+            new_announ.owner = request.user
+            new_announ.save()
             return redirect('components:announcement')
-
+    else:
+        form = AnnounForm()
+    
     context = {'form': form}
     return render(request, 'components/new_announ.html', context)
 

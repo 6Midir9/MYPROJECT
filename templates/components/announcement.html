@@ -1,18 +1,25 @@
 {% extends 'components/base.html' %}
 
 {% block content %}
-    <h1>Оголошення:</h1>
-    <a href="{% url 'components:new_announ' %}">Добавити нове оголошення!</a>
-    <ul>
+<div class="container">
+    <h1 class="text-center mb-4">ОГОЛОШЕННЯ</h1>
+    <div class="text-center">
+        <a class="btn btn btn-outline-success mb-3 align-center" href="{% url 'components:new_announ' %}">Добавити нове оголошення!</a>
+    </div>
+    <ul class="list-group">
         {% for announcement in announcements %}
-            <h3> Товар: {{ announcement.title }}</h3> 
-            <li> Опис: {{ announcement.text }}</li>
-            <li> Ціна: {{ announcement.price }}</li>
-            <li> Контакти: {{ announcement.contact_email }}</li>
-            <a href="{% url 'components:edit_announ' announcement.id %}">Редагувати</a> 
-            <a href="{% url 'components:delete_announ' announcement.id %}">Видалити</a>
+            <li class="list-group-item list-group-item-success">
+                <h3 class="mb-1">Товар: {{ announcement.title }}</h3> 
+                <hr class="my-2">
+                <p class="mb-1">Опис: {{ announcement.text }}</p>
+                <p class="mb-1">Ціна: {{ announcement.price }}</p>
+                <p class="mb-1">Контакти: {{ announcement.contact_email }}</p>
+                <a class="btn btn btn-outline-primary" href="{% url 'components:edit_announ' announcement.id %}">Редагувати</a> 
+                <a class="btn btn btn-outline-danger" href="{% url 'components:delete_announ' announcement.id %}">Видалити</a>
+            </li>
         {% empty %}
-            <li>Тут ще не має оголошень!</li>
+            <li class="list-group-item list-group-item-warning">Тут ще не має оголошень!</li>
         {% endfor %}
     </ul>
+</div>
 {% endblock %}

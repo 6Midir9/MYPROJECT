@@ -1,10 +1,16 @@
 {% extends "components/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
-    <form method="post" action="{% url 'users:register' %}">
+<div class="container text-center">
+    <form method="post" action="{% url 'users:register' %}" class="row justify-content-center">
+        <div class="col-6">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Реєстрація</button>
+        {{ form|crispy }}
+        <button name="submit" class="btn btn-warning mt-2">Реєстрація</button>
         <input type="hidden" name="next" value="{% url 'components:index' %}" />
+    </div>
     </form>
+</div>
 {% endblock content %}

@@ -1,7 +1,12 @@
 {% extends "components/base.html" %}
 
 {% block content %}
-     <p>
-     Цей сайт допоможе вам купити/продати ваш товар! Ви можете перейти у розділ <a href="{% url 'components:announcement' %}">Оголошення</a>, щоб купити чи продати товар.
-     </p>
+     <div class="card text-center border-warning">
+          <div class="card-header text-white bg-success mb-3">Важливо!</div>
+          <div class="card-body mb-3">
+            <h5 class="card-title mb-3">Оголошення</h5>
+            <p class="card-text">Цей сайт допоможе вам купити/продати ваш товар!</p>
+            <a href="{% url 'components:announcement' %}" class="btn btn-warning">До оголошень!</a>
+          </div>
+     </div>
 {% endblock content %}
